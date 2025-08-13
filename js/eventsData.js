@@ -15,7 +15,7 @@ const eventsData = {
     name: "Bible Donations",
     location: "General - Johannesburg",
     date: "2025-08-24",
-    description: "Help us distribute Bibles to those in need. We are collecting bibles and funds to purchase Bibles and distribute them to communities that lack access to the Word of God. Each NT bible we buy is R17.00",
+    description: "We are collecting bibles and funds to purchase Bibles and distribute them to communities that lack access to the Word of God. Each NT bible we buy is R17.00",
     url: "./event.html?event=event2",
     lumaUrl: "https://lu.ma/event/evt-UmMdc7pOwBCuYiS",
     lumaEventId: "evt-UmMdc7pOwBCuYiS",
