@@ -169,8 +169,9 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h1 class="fw-bold text-primary mb-4">Mark<span class="text-white">1615</span></h1>
-                    <p>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita</p>
-                    <div class="d-flex pt-2">
+                    <p>And he said to them
+
+"Go into all the world and proclaim the gospel to the whole creation."</p><div class="d-flex pt-2">
                         <a class="btn btn-square me-1" href=""><i class="fab fa-instagram"></i></a>
                         <a class="btn btn-square me-1" href=""><i class="fab fa-whatsapp"></i></a>
                     
@@ -192,7 +193,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-light mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <p>Sign up to our newsletter</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
                         <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
                         <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
@@ -204,9 +205,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                        &copy; <a href="#">Mark1615</a>, All Right Reserved.
                     </div>
-                    <div class="col-md-6 text-center text-md-end">
+                    <div class="col-md-6 text-center text-md-end" style="font-size:2px;">
                         <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Designed By <a href="https://htmlcodex.com">HTML Codex</a>
                     </div>
@@ -235,18 +236,13 @@
   <script src="js/eventsData.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-   <script>
-    // Assuming URL format like https://yoursite.com/event1.html or with query param ?event=event1
-// events.js
 
-
+ <script>
 function getEventKeyFromURL() {
-      // Option 1: from path
-  const path = window.location.pathname; // e.g., /event1.html
-  const page = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')); // "event1"
+  const path = window.location.pathname;
+  const page = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
   if (eventsData[page]) return page;
 
-  // Option 2: from query string ?event=event1
   const urlParams = new URLSearchParams(window.location.search);
   const eventParam = urlParams.get("event");
   if (eventParam && eventsData[eventParam]) return eventParam;
@@ -258,36 +254,64 @@ function loadLumaCheckout(event) {
   const container = document.getElementById("luma-container");
   const link = document.getElementById("luma-register-btn");
 
-  // Update link attributes dynamically
+  // Reset button
+  link.style.display = "inline-block";
+  link.textContent = "Register for Event";
+  link.className = "btn btn-primary py-2 px-3 me-3";
+  link.removeAttribute("target");
+
+  // Donation only
+  if (event.type === "donation") {
+    link.textContent = "Donate Now";
+    link.href = "https://www.backabuddy.co.za/campaign/bi-weekly-food-drive";
+    link.removeAttribute("data-luma-action");
+    link.removeAttribute("data-luma-event-id");
+    link.target = "_blank";
+    return;
+  }
+
+  // Event OR Outreach → enable Luma modal
   link.href = event.lumaUrl;
+  link.setAttribute("data-luma-action", "checkout");
   link.setAttribute("data-luma-event-id", event.lumaEventId);
 
-  // Remove previous Luma script if any
+  // Ensure Luma script is loaded
   const oldScript = document.getElementById("luma-checkout");
   if (oldScript) oldScript.remove();
 
-  // Create new Luma checkout script element
   const script = document.createElement("script");
   script.id = "luma-checkout";
   script.src = "https://embed.lu.ma/checkout-button.js";
   script.async = true;
-
-  // Append the script so it loads and executes
   container.appendChild(script);
+
+  // Outreach → add Donate button as well
+  if (event.type === "outreach") {
+    if (!document.getElementById("donate-btn")) {
+      const donateBtn = document.createElement("a");
+      donateBtn.id = "donate-btn";
+      donateBtn.href = "https://www.backabuddy.co.za/campaign/bi-weekly-food-drive";
+      donateBtn.target = "_blank";
+      donateBtn.className = "btn btn-outline-primary py-2 px-3";
+      donateBtn.innerHTML = `Donate Now
+        <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+          <i class="fa fa-arrow-right"></i>
+        </div>`;
+      link.insertAdjacentElement("afterend", donateBtn);
+    }
+  }
 }
 
-
 function loadEventData() {
-    
   const eventKey = getEventKeyFromURL();
   if (!eventKey) {
-    console.warn("No event key found in URL, using default content");
+    console.warn("No event key found in URL");
     return;
   }
 
   const event = eventsData[eventKey];
- loadLumaCheckout(event);
-// / Update DOM with event info
+  loadLumaCheckout(event);
+
   document.getElementById("event-name").textContent = event.name;
   document.getElementById("breadcrumb-name").textContent = event.name;
   document.getElementById("event-location").textContent = event.location;
@@ -297,9 +321,10 @@ function loadEventData() {
   document.getElementById("event-image").src = event.image;
 }
 
-// Run after DOM loaded
 document.addEventListener("DOMContentLoaded", loadEventData);
-   </script>
+</script>
+
+
 </body>
 
 </html>

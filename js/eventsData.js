@@ -9,7 +9,8 @@ const eventsData = {
     lumaUrl: "https://lu.ma/event/evt-UmMdc7pOwBCuYiS",
     lumaEventId: "evt-UmMdc7pOwBCuYiS",
     time: "12:30 AM",
-    image:"img/9.jpg"
+    image:"img/9.jpg",
+    type:"event"
   },
   "event2": {
     name: "Bible Donations",
@@ -20,7 +21,8 @@ const eventsData = {
     lumaUrl: "https://lu.ma/event/evt-UmMdc7pOwBCuYiS",
     lumaEventId: "evt-UmMdc7pOwBCuYiS",
     time: "10:00 AM",
-    image:"img/11.jpg"
+    image:"img/11.jpg",
+    type:"donation"
   },
   "event3": {
     name: "Food Drive",
@@ -31,6 +33,7 @@ const eventsData = {
     lumaUrl: "https://lu.ma/event/evt-UmMdc7pOwBCuYiS",
     lumaEventId: "evt-UmMdc7pOwBCuYiS",
     time: "9:00 AM",
-    image:"img/2.jpg"
+    image:"img/2.jpg",
+    type:"outreach"
   }
 };

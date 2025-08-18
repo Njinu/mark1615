@@ -261,7 +261,7 @@
 
 
     <!-- Donate Start -->
-    <div class="container-fluid donate my-5 py-5" data-parallax="scroll" data-image-src="img/carousel-2.jpg">
+    <div class="container-fluid donate my-5 py-5" data-parallax="scroll" data-image-src="img/1.jpg">
         <div class="container py-5">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
@@ -443,8 +443,9 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h1 class="fw-bold text-primary mb-4">Mark<span class="text-white">1615</span></h1>
-                    <p>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita</p>
-                    <div class="d-flex pt-2">
+                    <p>And he said to them
+
+"Go into all the world and proclaim the gospel to the whole creation."</p><div class="d-flex pt-2">
                         <a class="btn btn-square me-1" href=""><i class="fab fa-instagram"></i></a>
                         <a class="btn btn-square me-1" href=""><i class="fab fa-whatsapp"></i></a>
                     
@@ -466,7 +467,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-light mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <p>Sign up to our newsletter</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
                         <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
                         <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
@@ -478,9 +479,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                        &copy; <a href="#">Mark1615</a>, All Right Reserved.
                     </div>
-                    <div class="col-md-6 text-center text-md-end">
+                    <div class="col-md-6 text-center text-md-end" style="font-size:2px;">
                         <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Designed By <a href="https://htmlcodex.com">HTML Codex</a>
                     </div>
@@ -515,6 +516,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let i = 1;
     for (const key in eventsData) {
         const event = eventsData[key];
+        
+        // Choose button text & link based on type
+        let buttonText = "Read More";
+        let buttonUrl = event.url;
+        if (event.type === "donation") {
+            buttonText = "Donate Now";
+        }
 
         const col = document.createElement("div");
         col.className = "col-lg-4 col-md-6 wow fadeInUp";
@@ -539,8 +547,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="position-relative mt-auto">
                     <img class="img-fluid" src="${event.image}" alt="${event.name}">
                     <div class="causes-overlay">
-                        <a class="btn btn-outline-primary" href="${event.url}">
-                            Read More
+                        <a class="btn btn-outline-primary" href="${buttonUrl}" target="_blank">
+                            ${buttonText}
                             <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
                                 <i class="fa fa-arrow-right"></i>
                             </div>
@@ -552,7 +560,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.appendChild(col);
 
-        // Update progress bar using only event date
+        // Update progress bar for both event & donation
         updateProgressBar(`progress${i}`, `label${i}`, event.date);
 
         i++;
@@ -563,11 +571,9 @@ function updateProgressBar(id, labelId, endDate) {
     const now = new Date();
     const end = new Date(endDate);
 
-    // Calculate days left
     const daysLeft = Math.max(Math.ceil((end - now) / (1000 * 60 * 60 * 24)), 0);
 
-    // Optional: fill bar based on remaining days (for visual effect)
-    const maxDays = 30; // adjust based on typical event timeframe
+    const maxDays = 30; 
     const percent = Math.min(((maxDays - daysLeft) / maxDays) * 100, 100);
 
     const bar = document.getElementById(id);
@@ -577,6 +583,7 @@ function updateProgressBar(id, labelId, endDate) {
     label.textContent = `${daysLeft} day${daysLeft !== 1 ? 's' : ''} left`;
 }
 </script>
+
 
 
 
