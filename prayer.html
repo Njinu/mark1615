@@ -39,6 +39,27 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
     </style>
+    <style>
+  #popup {
+    display: none; /* hidden at first */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 2000;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+  }
+  #popup h3 {
+    margin-bottom: 10px;
+  }
+</style>
+
 </head>
 
 <body>
@@ -74,9 +95,9 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="index.html" class="nav-item nav-link">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="causes.html" class="nav-item nav-link">Causes</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="event-list.html" class="nav-item nav-link">Events</a>                    
                     <a href="prayer.html" class="nav-item nav-link active">Prayers</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
                     <a class="btn btn-outline-primary py-2 px-3" href="">
@@ -111,8 +132,9 @@
             <div class="row g-5">
                 <!-- Form -->
                 <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Submit</div>
-                    <h1 class="display-6 mb-4">Submit a Prayer Request</h1>
+                    <!-- <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Submit</div> -->
+                  
+                    <h1 class="display-6 mb-4"> Can we pray for you?</h1>
                     <form id="prayer-form">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="name" placeholder="Your Name">
@@ -145,13 +167,16 @@
     </div>
     <!-- End -->
 <div id="popup">
-  <h3>🙏 Thank you!</h3>
-  <p>Your prayer has been scheduled for: <b id="prayerDate"></b></p>
-  <p>Join our WhatsApp group here:  
-    <a href="https://chat.whatsapp.com/YOURGROUPID" target="_blank">Join Group</a>
+  <h3 id="popupTitle">🙏 Thank you!</h3>
+  <p id="popupMessage">Your prayer has been scheduled for: <b id="prayerDate"></b></p>
+  <p id="whatsappGroup">
+    Our next prayer meeting is on <b id="nextPrayerDate"></b>. We encourage that you join our WhatsApp group here to join the call:
+    <br/><br/><div><a class="btn btn-primary" href="https://chat.whatsapp.com/YOURGROUPID" target="_blank">Join Group</a>
+    <button class="btn btn-outline-primary" onclick="closePopup()">Close</button></div>
   </p>
-  <button onclick="closePopup()">Close</button>
+  
 </div>
+
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -223,9 +248,10 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-  <script>
+
+
+<script>
 document.addEventListener('DOMContentLoaded', function () {
-    // --- Setup calendar ---
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -233,55 +259,95 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     calendar.render();
 
-    // --- Handle form submission ---
     document.getElementById('prayer-form').addEventListener('submit', async function (e) {
         e.preventDefault();
+$('#spinner').addClass('show');
+       
 
-        const scriptURL = "https://script.google.com/macros/s/AKfycbwi79VZVn4chTG1cRtL9bcOknk7W_3MqEnGuoDDtyOhETy9Tn3aLj6A6idGnZZhDJ09/exec"; // your Apps Script WebApp URL
-
-        // Collect values
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzjK1znh-3FlCWqN7Ad4eZQE8kLV010E9HV4qzjOukuU8j6RWM3G-WGcPW0pqom1YJa/exec";
         const anonymous = document.getElementById("anonymous").checked;
         const name = anonymous ? "Anonymous" : document.getElementById("name").value || "Anonymous";
         const prayer = document.getElementById("prayer").value;
 
-        // Add to calendar immediately (frontend only)
-        calendar.addEvent({
-            title: `${name}: ${prayer}`,
-            start: new Date(),
-            allDay: true
-        });
+        // ✅ Get the next scheduled meeting date
+        const nextMeeting = getNextPrayerDate();
 
-        // Prepare form data for Google Sheets
-        let formData = new FormData(this);
-        if (anonymous) {
-            formData.set("name", "Anonymous");
-        }
+        let formData = new FormData();
+        formData.append("name", name);
+        formData.append("prayer", prayer);
+        formData.append("scheduledDate", nextMeeting.toISOString()); // optional: pass to Sheets
 
         try {
-            // Save to Google Sheets
             await fetch(scriptURL, {
                 method: "POST",
                 body: formData,
-                mode: "no-cors" // avoids CORS errors
+                mode: "no-cors"
             });
 
-            // Show popup confirmation
-            const today = new Date().toLocaleDateString();
-            document.getElementById("prayerDate").textContent = today;
-            document.getElementById("popup").style.display = "block";
+            // ✅ Only add to calendar AFTER successful post
+            calendar.addEvent({
+                title: `${name}: ${prayer}`,
+                start: nextMeeting,
+                allDay: false
+            });
 
-            this.reset(); // clear form
+            //  var spinner = function () {
+        // setTimeout(function () {
+            if ($('#spinner').length > 0) {
+                $('#spinner').removeClass('show');
+            }
+        // }, 1);
+    // };
+    // spinner();
+
+            // ✅ Success popup with correct date
+         // ✅ Success popup with correct date
+document.getElementById("popupTitle").textContent = "🙏 Thank you!";
+document.getElementById("popupMessage").innerHTML = 
+    `Your prayer has been scheduled for our next meeting!`;
+
+// ✅ Update WhatsApp group text with dynamic date
+document.getElementById("whatsappGroup").innerHTML = `
+  Our next prayer meeting is on <b>${nextMeeting.toLocaleDateString()} at ${nextMeeting.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</b>. 
+  We encourage you to join our WhatsApp group here to join the call:<br/>
+
+`;
+
+document.getElementById("popup").style.display = "block";
+
         } catch (err) {
-            alert("Error submitting request: " + err.message);
+            document.getElementById("popupTitle").textContent = "⚠️ Error";
+            document.getElementById("popupMessage").textContent = "There was an error submitting your request. Please try again later.";
+            document.getElementById("whatsappGroup").style.display = "none";
+            document.getElementById("popup").style.display = "block";
         }
+
+        this.reset();
     });
 });
 
-// --- Close popup function (global so button can call it) ---
 function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
+
+function getNextPrayerDate() {
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+    const daysUntilTue = (2 - day + 7) % 7;  // Tuesday
+    const daysUntilThu = (4 - day + 7) % 7;  // Thursday
+
+    let nextTue = new Date(now);
+    nextTue.setDate(now.getDate() + (daysUntilTue === 0 ? 7 : daysUntilTue));
+    nextTue.setHours(19, 30, 0, 0); // 7:30 PM
+
+    let nextThu = new Date(now);
+    nextThu.setDate(now.getDate() + (daysUntilThu === 0 ? 7 : daysUntilThu));
+    nextThu.setHours(19, 30, 0, 0); // 7:30 PM
+
+    return (nextTue < nextThu) ? nextTue : nextThu;
+}
 </script>
+
 
 </body>
 
