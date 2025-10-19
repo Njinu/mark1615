@@ -67,7 +67,8 @@
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <a href="event-list.html" class="nav-item nav-link">Events</a>
-                      <a href="prayer.html" class="nav-item nav-link">Prayers</a>
+                    <a href="gallery.html" class="nav-item nav-link">Gallery</a>
+                    <a href="prayer.html" class="nav-item nav-link">Prayers</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
@@ -183,6 +184,24 @@
 
     </div>
     <!-- About End -->
+    <!-- Calendar Start -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    <div class="container-xxl bg-light py-5">
+        <div class="container">
+            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Events & Outreaches</div>
+                <h1 class="display-6 mb-5">Upcoming Events Calendar</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="bg-white rounded p-4 shadow">
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Calendar End -->
 
     <div class="container-xxl py-5">
         <div class="container">
@@ -193,7 +212,7 @@
             <div class="row g-4 justify-content-center">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="img/icon-1.png" alt="">
+                        <img class="img-fluid mb-4" src="img/icon-1.png"  style="width:75%" alt="">
                         <h4 class="mb-3">Whatsapp & Tik Tok Live</h4>
                         <p class="mb-4">We meet three times a week to go through the word.
                             Our WhatsApp group is for daily devotionals, prayer circles / requests & general admin.
@@ -208,7 +227,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="img/icon-2.png" alt="">
+                        <img class="img-fluid mb-4" src="img/icon-2.png"  style="width:75%" alt="">
                         <h4 class="mb-3">Evangelism</h4>
                         <p class="mb-4">We share the gospel through various outreach programs and events, aiming to reach those in need of hope and support.</p>
                         <a class="btn btn-outline-primary px-3" href="./event-list.html">
@@ -221,7 +240,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="img/icon-3.png" alt="">
+                        <img class="img-fluid mb-4" src="img/icon-3.png" style="width:75%" alt="">
                         <h4 class="mb-3">Outreach</h4>
                         <p class="mb-4">We organize outreach programs to provide support and resources to those in need, fostering a sense of community and hope.</p>
                         <a class="btn btn-outline-primary px-3" href="">
@@ -355,7 +374,7 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="team-item position-relative rounded overflow-hidden">
                         <div class="overflow-hidden">
-                            <img class="img-fluid" height="150px" src="" alt="">
+                            <img class="img-fluid" height="150px" src="img/revivalist.jpg" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
                             <h5>Mr Revivalist </h5>
@@ -371,7 +390,7 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="team-item position-relative rounded overflow-hidden">
                         <div class="overflow-hidden">
-                            <img class="img-fluid" src="" alt="">
+                            <img class="img-fluid" src="img/charlene.jpg" alt="">
                         </div>
                         <div class="team-text bg-light text-center p-4">
                             <h5>Charlene</h5>
@@ -496,66 +515,208 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/parallax/parallax.min.js"></script>
 
+        <!-- FullCalendar JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+        <script src="js/eventsData.js"></script>
+
+        <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize Calendar
+            const calendarEl = document.getElementById('calendar');
+            if (calendarEl) {
+                const calendarEvents = [];
+                for (const key in eventsData) {
+                    const event = eventsData[key];
+                    // Color logic
+                    let bg = '#0d6efd'; // default blue
+                    let border = '#0d6efd';
+                    let eventUrl = event.url;
+                    if (event.type === 'donation') { bg = border = '#ff69b4'; }
+                    if (event.name && event.name.toLowerCase().includes('tiktok')) {
+                        bg = border = '#ff8800';
+                        eventUrl = './event.html?event=event4';
+                    }
+                    if (event.name && event.name.toLowerCase().includes('prayer')) {
+                        bg = border = '#007bff';
+                        eventUrl = './prayer.html';
+                    }
+                    if (event.name && (event.name.toLowerCase().includes('evangelism') || event.name.toLowerCase().includes('outreach'))) {
+                        bg = border = '#28a745';
+                    }
+
+                    if (event.recurrence && event.recurrence.freq === "weekly" && event.recurrence.daysOfWeek) {
+                        calendarEvents.push({
+                            title: event.name,
+                            daysOfWeek: event.recurrence.daysOfWeek,
+                            startTime: event.recurrence.time,
+                            startRecur: event.recurrence.startDate || "2025-08-01",
+                            endRecur: event.recurrence.endDate || "2025-12-31",
+                            backgroundColor: bg,
+                            borderColor: border,
+                            textColor: '#ffffff',
+                            url: eventUrl,
+                            extendedProps: {
+                                description: event.description,
+                                type: event.type,
+                                image: event.image
+                            }
+                        });
+                    } else if (event.recurrence && event.recurrence.freq === "biweekly") {
+                        calendarEvents.push({
+                            title: event.name,
+                            start: event.recurrence.startDate,
+                            backgroundColor: bg,
+                            borderColor: border,
+                            textColor: '#ffffff',
+                            url: eventUrl,
+                            extendedProps: {
+                                description: event.description,
+                                type: event.type,
+                                image: event.image
+                            }
+                        });
+                    } else if (event.recurrence && event.recurrence.freq === "monthly" && event.recurrence.when === "endOfMonth") {
+                        const now = new Date();
+                        const year = now.getFullYear();
+                        const month = now.getMonth();
+                        const lastDay = new Date(year, month + 1, 0).getDate();
+                        const dateStr = `${year}-${(month+1).toString().padStart(2,'0')}-${lastDay}`;
+                        calendarEvents.push({
+                            title: event.name,
+                            start: dateStr,
+                            backgroundColor: bg,
+                            borderColor: border,
+                            textColor: '#ffffff',
+                            url: eventUrl,
+                            extendedProps: {
+                                description: event.description,
+                                type: event.type,
+                                image: event.image
+                            }
+                        });
+                    } else {
+                        calendarEvents.push({
+                            title: event.name,
+                            start: event.date,
+                            backgroundColor: bg,
+                            borderColor: border,
+                            textColor: '#ffffff',
+                            url: eventUrl,
+                            extendedProps: {
+                                description: event.description,
+                                type: event.type,
+                                image: event.image
+                            }
+                        });
+                    }
+                }
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,listMonth'
+                    },
+                    events: calendarEvents,
+                    eventClick: function(info) {
+                        info.jsEvent.preventDefault();
+                        const event = info.event;
+                        const description = event.extendedProps.description;
+                        if (confirm(`${event.title}\n\n${description}\n\nWould you like to visit the event page?`)) {
+                            window.open(event.url, '_blank');
+                        }
+                    },
+                    eventDidMount: function(info) {
+                        info.el.setAttribute('title', info.event.extendedProps.description);
+                    },
+                    height: 'auto',
+                    aspectRatio: 1.5,
+                    dayMaxEvents: 3,
+                    moreLinkClick: 'popover',
+                    eventDisplay: 'block'
+                });
+                calendar.render();
+            }
+            // Existing causes code...
+            const container = document.getElementById("causesContainer");
+                let i = 1;
+                let shown = 0;
+                const arr = [eventsData[0], eventsData[1], eventsData[2]];
+                for (const key in arr) {
+                    if (shown >= 3) break;
+                    const event = arr[key];
+                    // Filter out prayer circles and TikTok lives (case-insensitive, also check type)
+                    const nameLower = event.name ? event.name.toLowerCase() : "";
+                    if (
+                        nameLower.includes("prayer") ||
+                        nameLower.includes("tiktok") ||
+                        nameLower.includes("whatsapp") ||
+                        (event.type && event.type === "event" && (nameLower.includes("live") || nameLower.includes("circle")))
+                    ) continue;
+                    let buttonText = "Read More";
+                    let buttonUrl = event.url;
+                    if (event.type === "donation") {
+                        buttonText = "Donate Now";
+                    }
+                    const col = document.createElement("div");
+                    col.className = "col-lg-4 col-md-6 wow fadeInUp";
+                    col.setAttribute("data-wow-delay", `${0.1 * i}s`);
+                    col.innerHTML = `
+                        <div class="causes-item d-flex flex-column bg-white border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                            <div class="text-center p-4 pt-0">
+                                <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                                    <small>${event.name}</small>
+                                </div>
+                                <h5 class="mb-3">${event.name}</h5>
+                                <p>${event.description}</p>
+                                <div class="causes-progress bg-light p-3 pt-2">
+                                    <div class="progress">
+                                        <div id="progress${i}" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                            <span id="label${i}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="position-relative mt-auto">
+                                <img class="img-fluid" src="${event.image}" alt="${event.name}">
+                                <div class="causes-overlay">
+                                    <a class="btn btn-outline-primary" href="${buttonUrl}" target="_blank">
+                                        ${buttonText}
+                                        <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                            <i class="fa fa-arrow-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(col);
+                    updateProgressBar(`progress${i}`, `label${i}`, event.date);
+                    i++;
+                    shown++;
+                }
+        });
+        function updateProgressBar(id, labelId, endDate) {
+            const now = new Date();
+            const end = new Date(endDate);
+            const daysLeft = Math.max(Math.ceil((end - now) / (1000 * 60 * 60 * 24)), 0);
+            const maxDays = 30; 
+            const percent = Math.min(((maxDays - daysLeft) / maxDays) * 100, 100);
+            const bar = document.getElementById(id);
+            const label = document.getElementById(labelId);
+            bar.style.width = percent + "%";
+            bar.setAttribute("aria-valuenow", percent.toFixed(0));
+            label.textContent = `${daysLeft} day${daysLeft !== 1 ? 's' : ''} left`;
+        }
+        </script>
+
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 <script src="js/eventsData.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("causesContainer");
-
-    let i = 1;
-    for (const key in eventsData) {
-        const event = eventsData[key];
-        
-        // Choose button text & link based on type
-        let buttonText = "Read More";
-        let buttonUrl = event.url;
-        if (event.type === "donation") {
-            buttonText = "Donate Now";
-        }
-
-        const col = document.createElement("div");
-        col.className = "col-lg-4 col-md-6 wow fadeInUp";
-        col.setAttribute("data-wow-delay", `${0.1 * i}s`);
-
-        col.innerHTML = `
-            <div class="causes-item d-flex flex-column bg-white border-top border-5 border-primary rounded-top overflow-hidden h-100">
-                <div class="text-center p-4 pt-0">
-                    <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
-                        <small>${event.name}</small>
-                    </div>
-                    <h5 class="mb-3">${event.name}</h5>
-                    <p>${event.description}</p>
-                    <div class="causes-progress bg-light p-3 pt-2">
-                        <div class="progress">
-                            <div id="progress${i}" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                <span id="label${i}"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="position-relative mt-auto">
-                    <img class="img-fluid" src="${event.image}" alt="${event.name}">
-                    <div class="causes-overlay">
-                        <a class="btn btn-outline-primary" href="${buttonUrl}" target="_blank">
-                            ${buttonText}
-                            <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
-                                <i class="fa fa-arrow-right"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        container.appendChild(col);
-
-        // Update progress bar for both event & donation
-        updateProgressBar(`progress${i}`, `label${i}`, event.date);
-
-        i++;
-    }
+    // ...existing code for calendar and causes rendering (first 3 qualifying events)...
 });
 
 function updateProgressBar(id, labelId, endDate) {
