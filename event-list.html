@@ -102,6 +102,19 @@
         </div>
     </div>
     <!-- Page Header End -->
+       <!-- Featured Event Start -->
+        <div class="container-xxl py-5" id="featured-section">
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                    <!-- <div class="d-inline-block rounded-pill bg-secondary text-primary py-1 px-3 mb-3">Latest</div> -->
+                    <h1 class="display-6 mb-5">Featured Event</h1>
+                </div>
+                <div class="row g-4 justify-content-center" id="featured-event-container">
+                    <!-- featured event injected here -->
+                </div>
+            </div>
+        </div>
+        <!-- Featured Event End -->
 
     <!-- Causes End -->
         <!-- Calendar Start -->
@@ -117,6 +130,7 @@
             </div>
         </div>
     </div>
+ 
     <!-- Calendar End -->
         
 
@@ -237,6 +251,51 @@ Object.values(eventsData).forEach(event => {
   `;
   container.insertAdjacentHTML('beforeend', eventHTML);
 });
+
+// Render featured event (the one with featured:true)
+(function renderFeatured(){
+    try {
+        const featuredContainer = document.getElementById('featured-event-container');
+        if (!featuredContainer) return;
+        const featured = Object.values(eventsData).find(e => e.featured === true);
+        if (!featured) {
+            // hide section if none
+            const section = document.getElementById('featured-section');
+            if (section) section.style.display = 'none';
+            return;
+        }
+
+        const html = `
+            <div class="col-lg-8 col-md-10 wow fadeInUp">
+                <div class="causes-item d-flex flex-column bg-light border-top border-5 border-primary rounded-top overflow-hidden h-100">
+                    <div class="text-center p-4 pt-0">
+                        <div class="d-inline-block bg-primary text-white rounded-bottom fs-5 pb-1 px-3 mb-4">
+                            <small>${featured.location}</small>
+                        </div>
+                        <h3 class="mb-3">${featured.name}</h3>
+                        <p>${featured.description}</p>
+                        <p style='font-size:14px'><strong>Date: ${featured.date} | ${featured.time}</strong></p>
+                    </div>
+                    <div class="position-relative mt-auto">
+                        <img class="img-fluid" src="${featured.image}" alt="">
+                        <div class="causes-overlay">
+                            <a class="btn btn-outline-primary" href="${featured.url}">
+                                    Read More
+                                    <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
+                                            <i class="fa fa-arrow-right"></i>
+                                    </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        featuredContainer.insertAdjacentHTML('beforeend', html);
+    } catch (err) {
+        console.error('Error rendering featured event', err);
+    }
+})();
 
 // Convert "12:30 AM" or "10:00 AM" → "HH:mm" 24-hour format
 function formatTime12to24(time12h) {

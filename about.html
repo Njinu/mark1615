@@ -143,8 +143,28 @@
     <!-- About End -->
 
 
-    <!-- Service Start -->
     
+    <!-- Service Start -->
+    <!-- Gallery Carousel Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div id="aboutGalleryCarousel" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner" id="about-carousel-inner">
+                    <!-- slides injected here -->
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#aboutGalleryCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#aboutGalleryCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Gallery Carousel End -->
+
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
@@ -347,6 +367,38 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+    (async function(){
+        const max = 30;
+        const candidates = Array.from({length:max}, (_,i) => `img/gallery/${i+1}.jpg`);
+
+        function testImage(src){
+            return new Promise(resolve => {
+                const img = new Image();
+                img.onload = () => resolve({src, ok:true});
+                img.onerror = () => resolve({src, ok:false});
+                img.src = src;
+            });
+        }
+
+        const results = await Promise.all(candidates.map(testImage));
+        const images = results.filter(r=>r.ok).map(r=>r.src);
+        const inner = document.getElementById('about-carousel-inner');
+        if (!images.length) return;
+
+        images.forEach((src, idx) => {
+            const item = document.createElement('div');
+            item.className = 'carousel-item' + (idx===0 ? ' active' : '');
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'd-block w-100';
+            img.style.objectFit = 'cover';
+            img.style.maxHeight = '450px';
+            item.appendChild(img);
+            inner.appendChild(item);
+        });
+    })();
+    </script>
 </body>
 
 </html>

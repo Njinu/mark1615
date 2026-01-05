@@ -316,6 +316,26 @@
             <!-- Gallery Container -->
             <div id="galleryContainer">
                 <!-- Dynamic gallery content will be loaded here -->
+                <div id="carouselWrapper" class="mb-5">
+                    <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators" id="carousel-indicators">
+                        </div>
+                        <div class="carousel-inner" id="carousel-inner">
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- grid thumbnails will be inserted here -->
+                </div>
             </div>
         </div>
     </div>
@@ -398,6 +418,157 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+    (async function(){
+        // Attempt to load images 1..30 and render only those that exist.
+        const max = 30;
+        const candidates = Array.from({length:max}, (_,i) => `img/gallery/${i+1}.jpg`);
+
+        // preload function returns true if image loads
+        function testImage(src){
+            return new Promise(resolve => {
+                const img = new Image();
+                img.onload = () => resolve({src, ok:true});
+                img.onerror = () => resolve({src, ok:false});
+                img.src = src;
+            });
+        }
+
+        const results = await Promise.all(candidates.map(testImage));
+        const images = results.filter(r=>r.ok).map(r=>r.src);
+
+        const indicatorsEl = document.getElementById('carousel-indicators');
+        const innerEl = document.getElementById('carousel-inner');
+        const gridEl = document.getElementById('galleryGrid');
+
+        if (!images.length) {
+            gridEl.innerHTML = '<p class="text-muted">No gallery images found.</p>';
+            return;
+        }
+
+        images.forEach((src, idx) => {
+            // indicators
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.setAttribute('data-bs-target','#galleryCarousel');
+            btn.setAttribute('data-bs-slide-to', String(idx));
+            if (idx === 0) btn.className = 'active';
+            btn.setAttribute('aria-label', `Slide ${idx+1}`);
+            indicatorsEl.appendChild(btn);
+
+            // carousel item
+            const item = document.createElement('div');
+            item.className = 'carousel-item' + (idx===0 ? ' active' : '');
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'd-block w-100';
+            img.alt = `Gallery image ${idx+1}`;
+            img.style.maxHeight = '600px';
+            img.style.objectFit = 'cover';
+            img.style.cursor = 'pointer';
+            img.dataset.index = idx;
+            item.appendChild(img);
+            innerEl.appendChild(item);
+
+            // thumbnail grid
+            const thumbWrap = document.createElement('div');
+            thumbWrap.className = 'gallery-item';
+            const thumbImg = document.createElement('img');
+            thumbImg.src = src;
+            thumbImg.alt = `Thumb ${idx+1}`;
+            thumbImg.dataset.index = idx;
+            thumbWrap.appendChild(thumbImg);
+            const overlay = document.createElement('div');
+            overlay.className = 'gallery-item-overlay';
+            overlay.innerHTML = '<i class="fa fa-search"></i>';
+            thumbWrap.appendChild(overlay);
+            gridEl.appendChild(thumbWrap);
+
+            // click handlers to open lightbox at index
+            img.addEventListener('click', () => openLightbox(idx));
+            thumbImg.addEventListener('click', () => openLightbox(idx));
+        });
+
+        // Lightbox
+        const lightboxModal = document.getElementById('lightboxModal');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const prevBtn = document.querySelector('.lightbox-prev');
+        const nextBtn = document.querySelector('.lightbox-next');
+        let currentIndex = 0;
+
+        function openLightbox(index){
+            currentIndex = index;
+            lightboxImage.src = images[currentIndex];
+            lightboxModal.style.display = 'block';
+        }
+
+        function closeLightbox(){
+            lightboxModal.style.display = 'none';
+        }
+
+        function showPrev(){
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            lightboxImage.src = images[currentIndex];
+        }
+
+        function showNext(){
+            currentIndex = (currentIndex + 1) % images.length;
+            lightboxImage.src = images[currentIndex];
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', showPrev);
+        nextBtn.addEventListener('click', showNext);
+
+        // close on outside click
+        lightboxModal.addEventListener('click', (e)=>{
+            if (e.target === lightboxModal) closeLightbox();
+        });
+
+        // keyboard nav
+        document.addEventListener('keydown', (e)=>{
+            if (lightboxModal.style.display !== 'block') return;
+            if (e.key === 'ArrowLeft') showPrev();
+            if (e.key === 'ArrowRight') showNext();
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Fallback: delegated click handler on document to open lightbox
+        // Works when overlays or parent containers receive the click
+        document.addEventListener('click', (e) => {
+            let el = e.target;
+            // find the nearest IMG inside the clicked element or its ancestors
+            function findImg(node){
+                if (!node) return null;
+                if (node.tagName === 'IMG') return node;
+                // check if node contains an img
+                const innerImg = node.querySelector && node.querySelector('img');
+                if (innerImg) return innerImg;
+                // check ancestors
+                const ancestorImg = node.closest && node.closest('img');
+                if (ancestorImg) return ancestorImg;
+                const galleryItem = node.closest && node.closest('.gallery-item');
+                if (galleryItem) return galleryItem.querySelector('img');
+                const carouselItem = node.closest && node.closest('.carousel-item');
+                if (carouselItem) return carouselItem.querySelector('img');
+                return null;
+            }
+
+            const imgEl = findImg(el);
+            if (!imgEl) return;
+
+            const srcAttr = imgEl.getAttribute('src') || '';
+            // match by path ending (handles file:// and absolute URLs)
+            const idx = images.findIndex(i => srcAttr.endsWith(i));
+            if (idx !== -1) {
+                e.preventDefault();
+                openLightbox(idx);
+            }
+        });
+    })();
+    </script>
     <script src="js/gallery.js"></script>
 </body>
 
