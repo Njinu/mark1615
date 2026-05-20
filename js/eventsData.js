@@ -1,50 +1,49 @@
 // eventsData.js
 const eventsData = { 
-  // "event1": {
-  //     name: "Evangelism Drive",
-  //     location: "Rosebank Mall (Starbucks)",
-  //     date: "2025-10-18",
-  //     description: "Join us for an evangelism drive at Rosebank Mall. We are sharing the gospel with the public and inviting them to learn more about Jesus and the good news he brought.",
-  //     url: "./event.html?event=event1",
-  //     lumaUrl: "https://lu.ma/event/evt-mT9eZi8AWyp7iJB",
-  //     lumaEventId: "evt-mT9eZi8AWyp7iJB",
-  //     time: "12:30 AM",
-  //     image:"img/9.jpg",
-  //     type:"event",
-  //     recurrence: {
-  //       freq: "biweekly",
-  //       interval: 2,
-  //       startDate: "2025-10-18"
-  //     }
-  // },
-  // "event2": {
-  //     name: "Bible Donations",
-  //     location: "General - Johannesburg",
-  //     date: "2025-10-31",
-  //     description: "We are collecting bibles and funds to purchase Bibles and distribute them to communities that lack access to the Word of God. Each NT bible we buy is R17.00",
-  //     url: "./event.html?event=event2",
-  //     lumaUrl: "https://lu.ma/event/evt-UmMdc7pOwBCuYiS",
-  //     lumaEventId: "evt-UmMdc7pOwBCuYiS",
-  //     time: "10:00 AM",
-  //     image:"img/11.jpg",
-  //     type:"donation",
-  //     recurrence: {
-  //       freq: "monthly",
-  //       when: "endOfMonth"
-  //     }
-  // },
+  "event1": {
+      name: "Evangelism Drive",
+      location: "Rosebank Mall (Starbucks)",
+      date: "2025-10-18",
+      description: "Join us for an evangelism drive at Rosebank Mall. We are sharing the gospel with the public and inviting them to learn more about Jesus and the good news he brought.",
+      url: "./event.html?event=event1",
+      lumaUrl: "https://lu.ma/event/evt-mT9eZi8AWyp7iJB",
+      lumaEventId: "evt-mT9eZi8AWyp7iJB",
+      time: "12:30 AM",
+      image:"img/9.jpg",
+      type:"event",
+      recurrence: {
+        freq: "biweekly",
+        interval: 2,
+        startDate: "2025-10-18"
+      }
+  },
+  "event2": {
+      name: "Bible Donations",
+      location: "General - Johannesburg",
+      date: "2025-10-31",
+      description: "We are collecting bibles and funds to purchase Bibles and distribute them to communities that lack access to the Word of God. Each NT bible we buy is R17.00",
+      url: "./event.html?event=event2",
+      lumaUrl: "https://lu.ma/event/evt-UmMdc7pOwBCuYiS",
+      lumaEventId: "evt-UmMdc7pOwBCuYiS",
+      time: "10:00 AM",
+      image:"img/11.jpg",
+      type:"donation",
+      recurrence: {
+        freq: "monthly",
+        when: "endOfMonth"
+      }
+  },
   "event3": {
-      name: "School Shoes Drive",
+      name: "Clothes Drive",
       location: "WaterWorks Soweto",
-      date: "2026-01-31",
-      description: "Join us in our 2026 school shoe drive, we are aiming to give away school shoes to children in need to help kickstart their year. if you would like to contrinute financially you may do so through our BackABuddy campaign page. If you have any school/ sport shoes that you would like to donate please reach out to our staff at on our website here: http://mark1615.co.za/contact or call/ WhatsApp on 081 591 1600.",
+      date: "2025-10-31",
+      description: "Join us for a recurring clothes drive at WaterWorks Soweto. We are distributing gently used clothing items to those in need.",
       url: "./event.html?event=event3",
       lumaUrl: "https://lu.ma/event/evt-4woKzE4OOkIq0cT",
       lumaEventId: "evt-4woKzE4OOkIq0cT",
       time: "11:00 AM",
       image:"img/2.jpg",
-      type:"donation",
-      featured:true,
+      type:"event",
       recurrence: {
         freq: "once",
         date: "2025-10-31"
@@ -54,13 +53,13 @@ const eventsData = {
   "event4": {
     name: "TikTok Live",
     location: "Online (TikTok)",
-    date: "Monday, Wednesday, Friday",
+    date: "2025-10-20",
     description: "Join our TikTok Live sessions for prayer, encouragement, and sharing the Word. Everyone is welcome!",
     url: "#",
     lumaUrl: "",
     lumaEventId: "",
     time: "19:30",
-     image: "img/tiktok.jpg",
+    // image: "img/tt.png",
     type: "event",
     recurrence: {
       freq: "weekly",
@@ -71,18 +70,59 @@ const eventsData = {
   "event5": {
     name: "WhatsApp Prayer Circle",
     location: "Online (WhatsApp)",
-    date: "Tuesday, Thursday",
+    date: "2025-10-21",
     description: "Join our WhatsApp Prayer Circle for intercession and encouragement. Open to all!",
     url: "#",
     lumaUrl: "",
     lumaEventId: "",
     time: "20:00",
-     image: "img/prayer.jpg",
+    // image: "img/whatsapp.png",
     type: "event",
     recurrence: {
       freq: "weekly",
       daysOfWeek: [2,4], // Tuesday, Thursday
       time: "20:00"
     }
-  }
+  },
+  "event_aug1": {
+    name: "Evangelize",
+    location: "Braamfontein",
+    date: "2026-08-01",
+    description: "Come join us for Evangelism Day in Braamfontein as we head out together to share hope, encourage people, and make the name of Jesus known. We will meet at Every Nation Braamfontein on Jorissen Street before going out, so come ready for a meaningful afternoon with great energy, prayer, and conversation. Whether you have done this many times before or you are joining for the first time, you are welcome. If you need a lift, please reach out to the group on WhatsApp so arrangements can be made. Bring a willing heart, invite a friend, and come be part of what God wants to do in the city.",
+    url: "./event.html?event=event_aug1",
+    lumaUrl: "https://lu.ma/497n5xlz",
+    lumaEventId: "497n5xlz",
+    time: "10:00 AM",
+    image: "img/aug2026.jpeg",
+    type: "event"
+  },
+  "event_aug2": {
+    name: "Outreach",
+    location: "TBT",
+    date: "2026-08-02",
+    description: "Join us for our August Community Outreach as we share food, clothing, and the good news with those in need in our area. It’s a meaningful morning of giving, serving, and showing practical care to our less privileged neighbors, and everyone is welcome to be part of it. The location will be shared closer to the day. If you need a lift, please reach out in the WhatsApp group so we can help arrange it. We look forward to spending this special time together and making a real difference.",
+    url: "./event.html?event=event_aug2",
+    lumaUrl: "https://lu.ma/et5x8g4o",
+    lumaEventId: "et5x8g4o",
+    time: "12:00 PM",
+    image: "img/aug2026.jpeg",
+    type: "event"
+  },
+  "evt_feb21": { name: "Evangelism: MD Training", location: "Zoo Lake", date: "2026-02-21", description: "MD Training session for Evangelism.", url: "./event.html?event=evt_feb21", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_mar07": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-03-07", description: "Small group follow up session.", url: "./event.html?event=evt_mar07", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_mar28": { name: "Evangelism", location: "Rosebank Mall", date: "2026-03-28", description: "Evangelism drive at Rosebank Mall.", url: "./event.html?event=evt_mar28", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_apr11": { name: "Evangelism", location: "Campus Square", date: "2026-04-11", description: "Evangelism drive at Campus Square.", url: "./event.html?event=evt_apr11", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_may02": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-05-02", description: "Small group follow up session.", url: "./event.html?event=evt_may02", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_may16": { name: "Evangelism", location: "TBD", date: "2026-05-16", description: "Evangelism drive.", url: "./event.html?event=evt_may16", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_may30": { name: "Engage Conference", location: "TBC", date: "2026-05-30", description: "Engage Conference.", url: "./event.html?event=evt_may30", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_jun13": { name: "Evangelism", location: "Ferndale on Republic", date: "2026-06-13", description: "Evangelism drive at Ferndale on Republic.", url: "./event.html?event=evt_jun13", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_jul04": { name: "Evangelism with GCC Mission", location: "Zoo Lake", date: "2026-07-04", description: "Evangelism drive with GCC Mission.", url: "./event.html?event=evt_jul04", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_jul18": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-07-18", description: "Small group follow up session.", url: "./event.html?event=evt_jul18", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_aug22": { name: "Evangelism: MD Training", location: "Rosebank Mall", date: "2026-08-22", description: "MD Training session for Evangelism.", url: "./event.html?event=evt_aug22", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_sep12": { name: "Evangelism", location: "Cresta Crossing/ Heathway Centre", date: "2026-09-12", description: "Evangelism drive.", url: "./event.html?event=evt_sep12", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_sep26": { name: "Small Group Follow Up", location: "Rosebank Mall", date: "2026-09-26", description: "Small group follow up session.", url: "./event.html?event=evt_sep26", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_oct10": { name: "Evangelism", location: "Campus Square", date: "2026-10-10", description: "Evangelism drive at Campus Square.", url: "./event.html?event=evt_oct10", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_oct24": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-10-24", description: "Small group follow up session.", url: "./event.html?event=evt_oct24", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_nov07": { name: "Evangelism", location: "Zoo Lake", date: "2026-11-07", description: "Evangelism drive at Zoo Lake.", url: "./event.html?event=evt_nov07", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
+  "evt_nov28": { name: "Small Groups and Year End Social", location: "Rosebank Mall or ENR", date: "2026-11-28", description: "Small Groups and Year End Social.", url: "./event.html?event=evt_nov28", time: "10:00 AM", image: "img/logo.jpg", type: "event" }
 };
