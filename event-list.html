@@ -227,8 +227,8 @@ Object.values(eventsData).forEach(event => {
         <div class="position-relative mt-auto">
           <img class="img-fluid" src="${event.image}" alt="">
           <div class="causes-overlay">
-            <a class="btn btn-outline-primary" href="${event.url}">
-                Read More
+                        <a class="btn btn-outline-primary" href="${event.type === 'donation' && event.donationUrl ? event.donationUrl : event.url}" ${event.type === 'donation' && event.donationUrl ? 'target="_blank"' : ''}>
+                                ${event.type === 'donation' ? 'Donate Now' : 'Read More'}
                 <div class="d-inline-flex btn-sm-square bg-primary text-white rounded-circle ms-2">
                     <i class="fa fa-arrow-right"></i>
                 </div>

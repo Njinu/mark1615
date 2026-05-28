@@ -23,6 +23,7 @@ const eventsData = {
       date: "2025-10-31",
       description: "We are collecting bibles and funds to purchase Bibles and distribute them to communities that lack access to the Word of God. Each NT bible we buy is R17.00",
       url: "./event.html?event=event2",
+      donationUrl: "https://www.backabuddy.co.za/campaign/monthly-food-drive",
       lumaUrl: "https://lu.ma/event/evt-UmMdc7pOwBCuYiS",
       lumaEventId: "evt-UmMdc7pOwBCuYiS",
       time: "10:00 AM",
@@ -102,11 +103,12 @@ const eventsData = {
     date: "2026-08-02",
     description: "Join us for our August Community Outreach as we share food, clothing, and the good news with those in need in our area. It’s a meaningful morning of giving, serving, and showing practical care to our less privileged neighbors, and everyone is welcome to be part of it. The location will be shared closer to the day. If you need a lift, please reach out in the WhatsApp group so we can help arrange it. We look forward to spending this special time together and making a real difference.",
     url: "./event.html?event=event_aug2",
+    donationUrl: "https://www.backabuddy.co.za/campaign/monthly-food-drive",
     lumaUrl: "https://lu.ma/et5x8g4o",
     lumaEventId: "et5x8g4o",
     time: "12:00 PM",
     image: "img/aug2026.jpeg",
-    type: "event"
+    type: "outreach"
   },
   "evt_feb21": { name: "Evangelism: MD Training", location: "Zoo Lake", date: "2026-02-21", description: "MD Training session for Evangelism.", url: "./event.html?event=evt_feb21", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_mar07": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-03-07", description: "Small group follow up session.", url: "./event.html?event=evt_mar07", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
