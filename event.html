@@ -241,6 +241,18 @@ function getEventKeyFromURL() {
   return null;
 }
 
+function formatTime12to24(time12h) {
+  if (!time12h) return "00:00";
+  const parts = time12h.split(" ");
+  if (parts.length === 1) return parts[0]; // Already in 24h format
+  const time = parts[0];
+  const modifier = parts[1];
+  let [hours, minutes] = time.split(":");
+  if (hours === "12") hours = "00";
+  if (modifier === "PM") hours = parseInt(hours, 10) + 12;
+  return `${hours.toString().padStart(2,"0")}:${minutes}`;
+}
+
 function loadLumaCheckout(event) {
   const container = document.getElementById("luma-container");
   const link = document.getElementById("luma-register-btn");
@@ -261,20 +273,37 @@ function loadLumaCheckout(event) {
     return;
   }
 
-  // Event OR Outreach → enable Luma modal
-  link.href = event.lumaUrl;
-  link.setAttribute("data-luma-action", "checkout");
-  link.setAttribute("data-luma-event-id", event.lumaEventId);
+  // Event OR Outreach
+  if (event.lumaUrl && event.lumaEventId) {
+    // Enable Luma modal
+    link.href = event.lumaUrl;
+    link.setAttribute("data-luma-action", "checkout");
+    link.setAttribute("data-luma-event-id", event.lumaEventId);
 
-  // Ensure Luma script is loaded
-  const oldScript = document.getElementById("luma-checkout");
-  if (oldScript) oldScript.remove();
+    // Ensure Luma script is loaded
+    const oldScript = document.getElementById("luma-checkout");
+    if (oldScript) oldScript.remove();
 
-  const script = document.createElement("script");
-  script.id = "luma-checkout";
-  script.src = "https://embed.lu.ma/checkout-button.js";
-  script.async = true;
-  container.appendChild(script);
+    const script = document.createElement("script");
+    script.id = "luma-checkout";
+    script.src = "https://embed.lu.ma/checkout-button.js";
+    script.async = true;
+    container.appendChild(script);
+  } else {
+    // Fallback to Google Calendar "Add to Calendar" if no Luma ID exists
+    link.textContent = "Add to Calendar";
+    link.removeAttribute("data-luma-action");
+    link.removeAttribute("data-luma-event-id");
+    link.target = "_blank";
+    
+    // Construct Google Calendar URL
+    const startDate = new Date(`${event.date}T${formatTime12to24(event.time)}`);
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // Add 2 hours by default
+    
+    const formatGoogleDate = (d) => d.toISOString().replace(/-|:|\.\\d+/g, "");
+    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.name)}&dates=${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
+    link.href = gcalUrl;
+  }
 
   // Outreach → add Donate button as well
   if (event.type === "outreach") {
