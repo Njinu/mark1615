@@ -1,0 +1,17 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[dev]
+  framework = "#static"
+  port = 8888
+  # Edge Functions not used — if `npm run dev:netlify` fails on Deno download,
+  # use `npm run dev` instead (scripts/dev-server.mjs)

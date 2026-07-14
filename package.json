@@ -1,0 +1,16 @@
+{
+  "name": "mark1615-shop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "dev:netlify": "netlify dev",
+    "build": "echo \"Static site — no build step\""
+  },
+  "dependencies": {
+    "mongodb": "^6.16.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^22.2.0"
+  }
+}

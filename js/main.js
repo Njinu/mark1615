@@ -10,11 +10,11 @@
         }, 1);
     };
     spinner();
-    
-    
-    // Initiate the wowjs
-    new WOW().init();
 
+    // Initiate the wowjs (optional — not loaded on all pages)
+    if (typeof WOW !== 'undefined') {
+        new WOW().init();
+    }
 
     // Fixed Navbar
     $(window).scroll(function () {
@@ -32,8 +32,7 @@
             }
         }
     });
-    
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -43,41 +42,42 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        var scrollOpts = { scrollTop: 0 };
+        if ($.easing && $.easing.easeInOutExpo) {
+            $('html, body').animate(scrollOpts, 1500, 'easeInOutExpo');
+        } else {
+            $('html, body').animate(scrollOpts, 600);
+        }
         return false;
     });
 
+    // Causes progress (optional)
+    if ($.fn.waypoint && $('.causes-progress').length) {
+        $('.causes-progress').waypoint(function () {
+            $('.progress .progress-bar').each(function () {
+                $(this).css("width", $(this).attr("aria-valuenow") + '%');
+            });
+        }, { offset: '80%' });
+    }
 
-    // Causes progress
-    $('.causes-progress').waypoint(function () {
-        $('.progress .progress-bar').each(function () {
-            $(this).css("width", $(this).attr("aria-valuenow") + '%');
-        });
-    }, {offset: '80%'});
-
-
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: false,
-        smartSpeed: 1000,
-        center: true,
-        dots: false,
-        loop: true,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-        responsive: {
-            0:{
-                items:1
-            },
-            768:{
-                items:2
+    // Testimonials carousel (optional)
+    if ($.fn.owlCarousel && $('.testimonial-carousel').length) {
+        $(".testimonial-carousel").owlCarousel({
+            autoplay: false,
+            smartSpeed: 1000,
+            center: true,
+            dots: false,
+            loop: true,
+            nav: true,
+            navText: [
+                '<i class="bi bi-arrow-left"></i>',
+                '<i class="bi bi-arrow-right"></i>'
+            ],
+            responsive: {
+                0: { items: 1 },
+                768: { items: 2 }
             }
-        }
-    });
+        });
+    }
 
-    
 })(jQuery);
-

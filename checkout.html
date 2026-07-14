@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Checkout - Mark 1615 Shop</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="img/favicon.ico" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/shop.css" rel="stylesheet">
+</head>
+<body>
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <div class="container-fluid fixed-top px-0">
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5">
+            <a href="index.html" class="navbar-brand ms-4"><h1 class="fw-bold text-primary m-0">Mark<span class="text-white">1615</span></h1></a>
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="shop.html" class="nav-item nav-link">Shop</a>
+                <a href="cart.html" class="nav-item nav-link active">Cart</a>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid page-header mb-5">
+        <div class="container text-center"><h1 class="display-4 text-white mb-4">Checkout</h1></div>
+    </div>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div id="shop-alert" class="mb-4"></div>
+            <div class="row g-5">
+                <div class="col-lg-7">
+                    <form id="checkout-form">
+                        <h4 class="mb-4">Contact details</h4>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label" for="customer-name">Full name *</label>
+                                <input type="text" class="form-control" id="customer-name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="customer-email">Email *</label>
+                                <input type="email" class="form-control" id="customer-email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label" for="customer-phone">Phone</label>
+                                <input type="tel" class="form-control" id="customer-phone">
+                            </div>
+                            <div class="col-12">
+                                <div class="shop-paxi-banner mb-3">
+                                    <img src="https://cdn.prod.website-files.com/632874eb357ffe9936d5498d/636a4b9640d40d161b81e109_PAXI_logo%5B93%5D.webp" alt="PAXI" class="shop-paxi-logo" width="120" height="40">
+                                    <div>
+                                        <h5 class="mb-1">Delivery via <a href="https://www.paxi.co.za/" target="_blank" rel="noopener">PAXI</a></h5>
+                                        <p class="small text-muted mb-0">Nationwide parcel delivery from <strong>R59.95</strong>. Choose how fast you need it — PAXI point or door delivery. Over 2,800 collection points at PEP, Tekkie Town &amp; Shoe City.</p>
+                                    </div>
+                                </div>
+                                <label class="form-label fw-semibold">Choose delivery speed</label>
+                                <div id="delivery-options" class="shop-delivery-options mb-3"></div>
+                                <div id="paxi-point-field" class="mb-3">
+                                    <label class="form-label" for="paxi-point">PAXI point *</label>
+                                    <input type="text" class="form-control" id="paxi-point" placeholder="e.g. PEP Rosebank or suburb name">
+                                    <p class="small text-muted mt-1"><a href="https://www.paxi.co.za/" target="_blank" rel="noopener">Find a PAXI point</a> near you</p>
+                                </div>
+                                <div id="delivery-address-field" class="mb-3 d-none">
+                                    <label class="form-label" for="delivery-address">Delivery address *</label>
+                                    <textarea class="form-control" id="delivery-address" rows="2" placeholder="Street, suburb, city, postal code"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="order-notes">Order notes</label>
+                                <textarea class="form-control" id="order-notes" rows="3" placeholder="Size, gift message, etc."></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" id="pay-btn" class="btn btn-primary w-100 py-3 mt-4">
+                            <i class="fa fa-lock me-2"></i>Pay with Paystack
+                        </button>
+                        <p class="small text-muted text-center mt-3">
+                            Secure payment in ZAR. You will be redirected to Paystack to complete payment.
+                        </p>
+                    </form>
+                </div>
+                <div class="col-lg-5" id="checkout-summary"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="module">
+        import './js/shop/init.js';
+        import { initCheckoutPage } from './js/shop/checkout.js';
+        document.addEventListener('DOMContentLoaded', initCheckoutPage);
+    </script>
+</body>
+</html>

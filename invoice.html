@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Invoice - Mark 1615 Shop</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="img/favicon.ico" rel="icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/shop.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid fixed-top px-0 no-print">
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-0 px-lg-5">
+            <a href="index.html" class="navbar-brand ms-4"><h1 class="fw-bold text-primary m-0">Mark<span class="text-white">1615</span></h1></a>
+        </nav>
+    </div>
+    <div class="container-xxl py-5 mt-5">
+        <div class="container">
+            <div id="shop-alert" class="mb-4 no-print"></div>
+            <div id="invoice-content"></div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="module">
+        import './js/shop/init.js';
+        import { initInvoicePage } from './js/shop/invoice.js';
+        document.addEventListener('DOMContentLoaded', initInvoicePage);
+    </script>
+</body>
+</html>
