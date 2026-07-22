@@ -10,6 +10,47 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# Shop temporarily hidden
+[[redirects]]
+  from = "/shop"
+  to = "/"
+  status = 302
+
+[[redirects]]
+  from = "/shop.html"
+  to = "/"
+  status = 302
+
+[[redirects]]
+  from = "/product.html"
+  to = "/"
+  status = 302
+
+[[redirects]]
+  from = "/cart.html"
+  to = "/"
+  status = 302
+
+[[redirects]]
+  from = "/checkout.html"
+  to = "/"
+  status = 302
+
+[[redirects]]
+  from = "/track-order.html"
+  to = "/"
+  status = 302
+
+[[redirects]]
+  from = "/order.html"
+  to = "/"
+  status = 302
+
+[[redirects]]
+  from = "/invoice.html"
+  to = "/"
+  status = 302
+
 [dev]
   framework = "#static"
   port = 8888
