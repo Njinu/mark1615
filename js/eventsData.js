@@ -88,7 +88,7 @@ const eventsData = {
     name: "Evangelize",
     location: "Braamfontein",
     date: "2026-08-01",
-    description: "Come join us for Evangelism Day in Braamfontein as we head out together to share hope, encourage people, and make the name of Jesus known. We will meet at Every Nation Braamfontein on Jorissen Street before going out, so come ready for a meaningful afternoon with great energy, prayer, and conversation. Whether you have done this many times before or you are joining for the first time, you are welcome. If you need a lift, please reach out to the group on WhatsApp so arrangements can be made. Bring a willing heart, invite a friend, and come be part of what God wants to do in the city.",
+    description: "Come join us for Evangelism Day in Braamfontein as we head out together to share hope, encourage people, and make the name of Jesus known. We will meet in Braamfontein on Jorissen Street before going out, so come ready for a meaningful afternoon with great energy, prayer, and conversation. Whether you have done this many times before or you are joining for the first time, you are welcome. If you need a lift, please reach out to the group on WhatsApp so arrangements can be made. Bring a willing heart, invite a friend, and come be part of what God wants to do in the city.",
     url: "./event.html?event=event_aug1",
     lumaUrl: "https://lu.ma/497n5xlz",
     lumaEventId: "497n5xlz",
@@ -109,20 +109,13 @@ const eventsData = {
     type: "event"
   },
   "evt_feb21": { name: "Evangelism: MD Training", location: "Zoo Lake", date: "2026-02-21", description: "MD Training session for Evangelism.", url: "./event.html?event=evt_feb21", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_mar07": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-03-07", description: "Small group follow up session.", url: "./event.html?event=evt_mar07", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_mar28": { name: "Evangelism", location: "Rosebank Mall", date: "2026-03-28", description: "Evangelism drive at Rosebank Mall.", url: "./event.html?event=evt_mar28", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_apr11": { name: "Evangelism", location: "Campus Square", date: "2026-04-11", description: "Evangelism drive at Campus Square.", url: "./event.html?event=evt_apr11", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_may02": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-05-02", description: "Small group follow up session.", url: "./event.html?event=evt_may02", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_may16": { name: "Evangelism", location: "TBD", date: "2026-05-16", description: "Evangelism drive.", url: "./event.html?event=evt_may16", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_may30": { name: "Engage Conference", location: "TBC", date: "2026-05-30", description: "Engage Conference.", url: "./event.html?event=evt_may30", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_jun13": { name: "Evangelism", location: "Ferndale on Republic", date: "2026-06-13", description: "Evangelism drive at Ferndale on Republic.", url: "./event.html?event=evt_jun13", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_jul04": { name: "Evangelism with GCC Mission", location: "Zoo Lake", date: "2026-07-04", description: "Evangelism drive with GCC Mission.", url: "./event.html?event=evt_jul04", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_jul18": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-07-18", description: "Small group follow up session.", url: "./event.html?event=evt_jul18", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_aug22": { name: "Evangelism: MD Training", location: "Rosebank Mall", date: "2026-08-22", description: "MD Training session for Evangelism.", url: "./event.html?event=evt_aug22", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_sep12": { name: "Evangelism", location: "Cresta Crossing/ Heathway Centre", date: "2026-09-12", description: "Evangelism drive.", url: "./event.html?event=evt_sep12", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_sep26": { name: "Small Group Follow Up", location: "Rosebank Mall", date: "2026-09-26", description: "Small group follow up session.", url: "./event.html?event=evt_sep26", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
   "evt_oct10": { name: "Evangelism", location: "Campus Square", date: "2026-10-10", description: "Evangelism drive at Campus Square.", url: "./event.html?event=evt_oct10", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_oct24": { name: "Small group follow up", location: "Rosebank Mall", date: "2026-10-24", description: "Small group follow up session.", url: "./event.html?event=evt_oct24", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_nov07": { name: "Evangelism", location: "Zoo Lake", date: "2026-11-07", description: "Evangelism drive at Zoo Lake.", url: "./event.html?event=evt_nov07", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_nov28": { name: "Small Groups and Year End Social", location: "Rosebank Mall or ENR", date: "2026-11-28", description: "Small Groups and Year End Social.", url: "./event.html?event=evt_nov28", time: "10:00 AM", image: "img/logo.jpg", type: "event" }
+  "evt_nov07": { name: "Evangelism", location: "Zoo Lake", date: "2026-11-07", description: "Evangelism drive at Zoo Lake.", url: "./event.html?event=evt_nov07", time: "10:00 AM", image: "img/logo.jpg", type: "event" }
 };
