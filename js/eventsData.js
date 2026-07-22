@@ -109,14 +109,5 @@ const eventsData = {
     time: "12:00 PM",
     image: "img/aug2026.jpeg",
     type: "event"
-  },
-  "evt_feb21": { name: "Evangelism: MD Training", location: "Zoo Lake", date: "2026-02-21", description: "MD Training session for Evangelism.", url: "./event.html?event=evt_feb21", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_mar28": { name: "Evangelism", location: "Rosebank Mall", date: "2026-03-28", description: "Evangelism drive at Rosebank Mall.", url: "./event.html?event=evt_mar28", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_apr11": { name: "Evangelism", location: "Campus Square", date: "2026-04-11", description: "Evangelism drive at Campus Square.", url: "./event.html?event=evt_apr11", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_may16": { name: "Evangelism", location: "TBD", date: "2026-05-16", description: "Evangelism drive.", url: "./event.html?event=evt_may16", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_jun13": { name: "Evangelism", location: "Ferndale on Republic", date: "2026-06-13", description: "Evangelism drive at Ferndale on Republic.", url: "./event.html?event=evt_jun13", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_aug22": { name: "Evangelism: MD Training", location: "Rosebank Mall", date: "2026-08-22", description: "MD Training session for Evangelism.", url: "./event.html?event=evt_aug22", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_sep12": { name: "Evangelism", location: "Cresta Crossing/ Heathway Centre", date: "2026-09-12", description: "Evangelism drive.", url: "./event.html?event=evt_sep12", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_oct10": { name: "Evangelism", location: "Campus Square", date: "2026-10-10", description: "Evangelism drive at Campus Square.", url: "./event.html?event=evt_oct10", time: "10:00 AM", image: "img/logo.jpg", type: "event" },
-  "evt_nov07": { name: "Evangelism", location: "Zoo Lake", date: "2026-11-07", description: "Evangelism drive at Zoo Lake.", url: "./event.html?event=evt_nov07", time: "10:00 AM", image: "img/logo.jpg", type: "event" }
+  }
 };
